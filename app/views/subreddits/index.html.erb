@@ -1,27 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Subreddits</h1>
+<h1>RedditLite</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= form_tag subreddits_path, :method => 'get' do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search for posts from your favorite subreddit here." %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
 
-  <tbody>
-    <% @subreddits.each do |subreddit| %>
-      <tr>
-        <td><%= subreddit.name %></td>
-        <td><%= link_to 'Show', subreddit %></td>
-        <td><%= link_to 'Edit', edit_subreddit_path(subreddit) %></td>
-        <td><%= link_to 'Destroy', subreddit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @posts.each do |post| %>
+  <p>Title: <%= post["data"]["title"] %></p>  
+  <p>URL: <%= post["data"]["permalink"] %></p>
+  <p>Author: <%= post["data"]["author"] %></p>
+  <p>Posted on <%= Time.at(post["data"]["created"]).strftime('%B %e, %Y at %l:%M %p') %></p>  
+  <hr>  
+<% end %>
 
-<br>
-
-<%= link_to 'New Subreddit', new_subreddit_path %>
