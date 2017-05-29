@@ -2,8 +2,16 @@
 
 <h1>RedditLite</h1>
 
+<%= form_tag subreddits_path, :method => 'get' do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search for posts from your favorite subreddit here." %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
+
 <% @posts.each do |post| %>
   <p>Title: <%= post["data"]["title"] %></p>  
-  <p>URL: <%= post["data"]["permalink"] %></p>    
+  <p>URL: <%= post["data"]["permalink"] %></p>
+  <p>Author: <%= post["data"]["author"] %></p>
+  <p>Posted on <%= Time.at(post["data"]["created"]).strftime('%B %e, %Y at %l:%M %p') %></p>  
+  <hr>  
 <% end %>
 

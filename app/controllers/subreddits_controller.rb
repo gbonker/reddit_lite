@@ -5,12 +5,20 @@ class SubredditsController < ApplicationController
   # GET /subreddits
   # GET /subreddits.json
   def index
-    @subreddits = Subreddit.all
-
-    response = HTTParty.get('https://www.reddit.com/.json')
+    if params[:search].present?
+      response = HTTParty.get('https://www.reddit.com/r/' + params[:search] + '.json')
+    else
+      response = HTTParty.get('https://www.reddit.com/.json')
+    end
+    
     json = JSON.parse(response.body)
 
-    @posts = json["data"]["children"]
+    # sometimes reddit complains that I'm making "too many requests"
+    if json["error"] == 429 # "Too Many Requests"
+      @posts = []
+    else
+      @posts = json["data"]["children"]
+    end
   end
 
   # GET /subreddits/1
