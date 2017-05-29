@@ -1,10 +1,16 @@
 class SubredditsController < ApplicationController
   before_action :set_subreddit, only: [:show, :edit, :update, :destroy]
 
+
   # GET /subreddits
   # GET /subreddits.json
   def index
     @subreddits = Subreddit.all
+
+    response = HTTParty.get('https://www.reddit.com/.json')
+    json = JSON.parse(response.body)
+
+    @posts = json["data"]["children"]
   end
 
   # GET /subreddits/1
