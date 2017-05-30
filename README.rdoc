@@ -11,10 +11,7 @@ Stack:
 * SQlite database
 
 
-Here are my answers to the given questions as requested:
-
-
-1. How is your code structured, and why?
+=== How is your code structured, and why?
 
 I structured my code in a standard model-view-controller framework that Rails conveniently provides. 
 
@@ -24,16 +21,16 @@ The post model has an id (primary key), subreddit_id (foreign key), and attribut
 
 The subreddit controller handles making and parsing the API calls, and then talks to the view to render them correctly. The controller also handles common errors, such as making too many requests to Reddit's API or searching for a subreddit that does not exist.
 
-2. How does updated data change your application’s state?
+=== How does updated data change your application’s state?
 
 Updated data changes my application's state in the controller and view layers. If I were to expand or scale this application, I would consider storing subreddits and their posts in the database. However, if I were to do this, I would want to make sure that I am not saving duplicate posts. This would require saving the posts in such a way that duplicates are searchable in something faster than O(n) time. Otherwise we would be doing a lot of full-table scans, which would slow down the app immensely. Additionally, I would want to make sure there would be some kind of purpose for storing the posts, such as storing them by day or category for example, because otherwise we are taking up data storage for not the most ideal reason, since the data already exists in Reddit's API anyway.
 
-3. In your opinion, what are the pros and cons of how your views are rendered?
+=== In your opinion, what are the pros and cons of how your views are rendered?
 
 I like the way my views are rendered because they are straightforward to understand from a code perspective. The API calls are made in the controller, and the view renders the data in an understandable way. Also, since we are not dealing with a local database, the views can be rendered quite quickly as long as the Reddit API behaves as expected. I am also using Bootstrap, which is much more modern and standard than the lack of styling that appears on Reddit's actual site.
 
 Some cons to this approach have to do with the fact that this app is completely dependent on the Reddit API. If the Reddit API goes down, or if it throws an error because this app is making too many GET requests, then this app is rendered useless. Storing posts locally would somewhat solve this problem, but we would likely be making a tradeoff when it comes to the app's load time, since we would have to check to see that we are not saving duplicate posts.
 
-4. If you were going to add a feature like login, how would your app’s architecture change?
+=== If you were going to add a feature like login, how would your app’s architecture change?
 
 If I were to add authentication to this app, I would have to make sure that the default page's (Reddit's home page's) data is based on subreddits that the authenticated user is subscribed to. I would accomplish this in part by adding a user_id field to the post model, and a subscribed field to the subreddit model. Of course, I would need to add a user model and controller with any relevant attributes and actions as well. I would also make sure to authenicate on a deeper level in the app (as Reddit prefers developers do anyway) by using a gem such as RedditKit. I would also consider authenticating with a user's Reddit account itself, because their API makes this possible. This would likely simplify any personalization features, such as the personalized homepage, as well. 
