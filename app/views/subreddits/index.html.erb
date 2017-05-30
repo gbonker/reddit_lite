@@ -8,7 +8,7 @@
 
 <% if @posts.empty? %> 
   <% if @error == false %>
-    <p>Looks like that subreddit doesn't exist. Try searching for another subreddit.</p>
+    <p>Looks like that subreddit doesn't exist. Try searching for another subreddit, or make sure you are spelling it correctly.</p>
   <% else %>
     <p>Looks like we're making too many requests to the Reddit API. Try refreshing the page in a couple seconds.</p>
   <% end %>
