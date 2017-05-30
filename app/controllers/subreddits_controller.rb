@@ -13,7 +13,7 @@ class SubredditsController < ApplicationController
     
     json = JSON.parse(response.body)
 
-    # sometimes reddit complains that I'm making "too many requests"
+    # sometimes reddit complains that I'm making too many requests
     if json["error"] == 429 # "Too Many Requests"
       @posts = []
       @error = true

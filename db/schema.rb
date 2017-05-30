@@ -11,14 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528225823) do
+ActiveRecord::Schema.define(version: 20170530043936) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "url"
     t.integer  "subreddit_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "comments_url"
+    t.integer  "number_of_comments"
+    t.integer  "upvotes"
+    t.integer  "downvotes"
+    t.datetime "posted_at"
+    t.string   "author_name"
   end
 
   create_table "subreddits", force: :cascade do |t|
