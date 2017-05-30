@@ -4,5 +4,6 @@ class Post < ActiveRecord::Base
 	validates_presence_of :title
 	validates_presence_of :url
 	validates_presence_of :subreddit_id
+	validates_numericality_of :subreddit_id
 	
 end
