@@ -19,7 +19,7 @@
         <h3><%= link_to post["data"]["title"], post["data"]["url"] %></h3>
         <% permalink = "https://www.reddit.com" + post["data"]["permalink"] %>
         <p><%= link_to permalink do %><%= post["data"]["num_comments"]%> comments<% end %>, <%= post["data"]["ups"] %> upvotes, <%= post["data"]["downs"] %> downvotes</p>
-        <p>Posted <%= time_ago_in_words(Time.at(post["data"]["created"])) %> ago by <%= post["data"]["author"] %></p> 
+        <p class="text-muted">Posted <%= time_ago_in_words(Time.at(post["data"]["created"])) %> ago by <%= post["data"]["author"] %></p> 
       </div>
     </div> 
   <% end %>
