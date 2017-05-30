@@ -16,8 +16,14 @@ class SubredditsController < ApplicationController
     # sometimes reddit complains that I'm making "too many requests"
     if json["error"] == 429 # "Too Many Requests"
       @posts = []
+      @error = true
     else
-      @posts = json["data"]["children"]
+      @error = false
+      if json["data"]["children"]
+        @posts = json["data"]["children"]
+      else
+        @posts = []
+      end
     end
   end
 

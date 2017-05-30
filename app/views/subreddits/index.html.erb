@@ -1,17 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h1>RedditLite</h1>
-
-<%= form_tag subreddits_path, :method => 'get' do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search for posts from your favorite subreddit here." %>
-  <%= submit_tag "Search", :name => nil %>
+<% if params[:search].present? %>
+  <h1>/r/<%= params[:search] %> </h1>
+<% else %>
+  <h1>/r/popular</h1>
 <% end %>
 
-<% @posts.each do |post| %>
-  <p>Title: <%= post["data"]["title"] %></p>  
-  <p>URL: <%= post["data"]["permalink"] %></p>
-  <p>Author: <%= post["data"]["author"] %></p>
-  <p>Posted on <%= Time.at(post["data"]["created"]).strftime('%B %e, %Y at %l:%M %p') %></p>  
-  <hr>  
+<% if @posts.empty? %> 
+  <% if @error == false %>
+    <p>Looks like that subreddit doesn't exist. Try searching for another subreddit.</p>
+  <% else %>
+    <p>Looks like we're making too many requests to the Reddit API. Try refreshing the page in a couple seconds.</p>
+  <% end %>
+<% else %>
+  <% @posts.each do |post| %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3><%= link_to post["data"]["title"], post["data"]["url"] %></h3>
+        <% permalink = "https://www.reddit.com" + post["data"]["permalink"] %>
+        <p><%= link_to permalink do %><%= post["data"]["num_comments"]%> comments<% end %>, <%= post["data"]["ups"] %> upvotes, <%= post["data"]["downs"] %> downvotes</p>
+        <p>Posted <%= time_ago_in_words(Time.at(post["data"]["created"])) %> ago by <%= post["data"]["author"] %></p> 
+      </div>
+    </div> 
+  <% end %>
 <% end %>
 

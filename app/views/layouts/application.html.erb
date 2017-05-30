@@ -8,7 +8,32 @@
 </head>
 <body>
 
-<%= yield %>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">RedditLite</a>
+    </div>
+    <%= form_tag subreddits_path, class: 'navbar-form navbar-left', method: 'get' do %>
+      <div class="form-group">
+        <%= text_field_tag :search, params[:search], placeholder: "Search for a subreddit", class: "form-control" %>
+      </div>
+      <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
+    <% end %>
+  </div>
+</nav>
+
+
+
+<div class="container">
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+
+  <%= yield %>
+</div>
 
 </body>
 </html>
