@@ -44,7 +44,7 @@ gem 'addressable'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
+group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -60,15 +60,15 @@ group :test do
   gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
-  gem 'mocha'
-  gem 'minitest-reporters'
+  gem 'mocha', require: false
   gem 'simplecov'
-  gem 'turn'
   gem 'single_test'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
   gem 'capybara'
-  gem 'minitest-rails', '~> 2.0'
+  gem 'minitest'
+  gem 'minitest-rails'
+  gem 'minitest-reporters'
 end
 
