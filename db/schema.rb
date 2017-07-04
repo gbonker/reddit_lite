@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20170530043936) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "url"
@@ -26,6 +29,8 @@ ActiveRecord::Schema.define(version: 20170530043936) do
     t.datetime "posted_at"
     t.string   "author_name"
   end
+
+  add_index "posts", ["subreddit_id"], name: "index_posts_on_subreddit_id", using: :btree
 
   create_table "subreddits", force: :cascade do |t|
     t.string   "name"
