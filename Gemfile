@@ -8,7 +8,7 @@ gem 'font-awesome-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 
-# use postgres for database so that we can deploy to Heroku
+# use postgres for database so that we can deploy to Herokumy_database_development
 gem 'pg'
 
 # Use SCSS for stylesheets
